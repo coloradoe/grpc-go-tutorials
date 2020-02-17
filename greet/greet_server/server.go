@@ -13,7 +13,10 @@ import (
 type server struct{}
 
 func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
-	firstName := req.GetGreeting().GetFirsName()
+
+	fmt.Printf("Print Function was Invoqued with %v", req)
+
+	firstName := req.GetGreeting().GetFirstName()
 
 	result := "Hello " + firstName
 
