@@ -17,7 +17,22 @@ message SumResponse{
     int64 result =1;
 }
 
+message NumberPrime {
+    int64 x = 1;
+}
+
+message PrimeRequest {
+    NumberPrime np =1;
+}
+
+message PrimeResponse {
+    int64 result = 1;
+}
+
 service SumService{
     //Unary API
     rpc Sum (SumRequest) returns (SumResponse) {};
+
+    //Server Streaming
+    rpc NumberPrime (PrimeRequest) returns (stream PrimeResponse) {};
 }
