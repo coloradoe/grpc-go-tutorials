@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"time"
 
 	"github.com/grpc-go-tutorials/calculator/calculatorpb"
 	"google.golang.org/grpc"
@@ -33,20 +32,19 @@ func (s *server) NumberPrime(req *calculatorpb.PrimeRequest, stream calculatorpb
 
 	fmt.Printf("Received Number RPC: %v", req)
 
-	var k int64 = 2
-	N := req.GetNp().GetX()
-	for N > 1 {
-		if (N % k) == 0 {
-			fmt.Println(k)
-			N = N / k
-			result := N
-			res := &calculatorpb.PrimeResponse{
-				Result: result,
-			}
-			stream.Send(res)
-			time.Sleep(1000 * time.Millisecond)
+	number := req.GetNp().GetX()
+	divisor := int64(2)
+
+	for number > 1 {
+		if (number % divisor) == 0 {
+			fmt.Println(divisor)
+			stream.Send(&calculatorpb.PrimeResponse{
+				Result: divisor,
+			})
+			number = number / divisor
 		} else {
-			k = k + 1
+			divisor++
+			fmt.Printf("Divisor has increased to: %v", divisor)
 		}
 	}
 	return nil

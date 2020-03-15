@@ -49,9 +49,7 @@ func doServerStreaming(c calculatorpb.SumServiceClient) {
 	fmt.Println("Starting to do a Server Stream RPC...")
 
 	req := &calculatorpb.PrimeRequest{
-		Np: &calculatorpb.NumberPrime{
-			X: 302,
-		},
+		Np: 12,
 	}
 	resStream, err := c.NumberPrime(context.Background(), req)
 	if err != nil {
